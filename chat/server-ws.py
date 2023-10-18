@@ -90,7 +90,8 @@ class Server:
                         # Виконуємо асинхронні запити за курсами валют та очікуємо їх результати
                         await asyncio.gather(*[fetch_exchange_rate(date) for date in date_list])
 
-
+                        await self.send_to_clients(messages)
+                        
                 except ValueError:
                     await ws.send("Помилка: Вкажіть кількість днів як ціле число (наприклад, 'ecd 5').")
                 except Exception as e:
